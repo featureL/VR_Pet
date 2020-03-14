@@ -1,0 +1,193 @@
+fileFormatVersion: 2
+guid: 18d343901dbdbf84e909b63d34d14fb9
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Armature.001
+    100002: Camera
+    100004: Camera.002
+    100006: Cube.000
+    100008: Cube.001
+    100010: Cube.002
+    100012: Cube.003
+    100014: Head
+    100016: Head_end
+    100018: Head_end_end
+    100020: Hips
+    100022: LeftArm
+    100024: LeftFoot
+    100026: LeftForeArm
+    100028: LeftForeArm_end
+    100030: LeftForeArm_end_end
+    100032: LeftLeg
+    100034: LeftShoulder
+    100036: LeftToeBase
+    100038: LeftToeBase_end
+    100040: LeftToeBase_end_end
+    100042: LeftUpLeg
+    100044: Light
+    100046: Light.001
+    100048: Neck
+    100050: //RootNode
+    100052: RightArm
+    100054: RightFoot
+    100056: RightForeArm
+    100058: RightForeArm_end
+    100060: RightForeArm_end_end
+    100062: RightLeg
+    100064: RightShoulder
+    100066: RightToeBase
+    100068: RightToeBase_end
+    100070: RightToeBase_end_end
+    100072: RightUpLeg
+    100074: Spine
+    100076: Spine1
+    100078: Spine2
+    400000: Armature.001
+    400002: Camera
+    400004: Camera.002
+    400006: Cube.000
+    400008: Cube.001
+    400010: Cube.002
+    400012: Cube.003
+    400014: Head
+    400016: Head_end
+    400018: Head_end_end
+    400020: Hips
+    400022: LeftArm
+    400024: LeftFoot
+    400026: LeftForeArm
+    400028: LeftForeArm_end
+    400030: LeftForeArm_end_end
+    400032: LeftLeg
+    400034: LeftShoulder
+    400036: LeftToeBase
+    400038: LeftToeBase_end
+    400040: LeftToeBase_end_end
+    400042: LeftUpLeg
+    400044: Light
+    400046: Light.001
+    400048: Neck
+    400050: //RootNode
+    400052: RightArm
+    400054: RightFoot
+    400056: RightForeArm
+    400058: RightForeArm_end
+    400060: RightForeArm_end_end
+    400062: RightLeg
+    400064: RightShoulder
+    400066: RightToeBase
+    400068: RightToeBase_end
+    400070: RightToeBase_end_end
+    400072: RightUpLeg
+    400074: Spine
+    400076: Spine1
+    400078: Spine2
+    2000000: Camera
+    2000002: Camera.002
+    2100000: Pinguin
+    2100002: Cap
+    2100004: Material
+    2100006: Material.001
+    4300000: Cube.002
+    4300002: Cube.000
+    4300004: Cube.001
+    4300006: Cube.003
+    7400000: Armature.001|Armature.000|Armature.001|Armature.001Action.002|Armature.001|A
+    7400002: Armature.001|Armature.000|Armature.001|Armature.001|Scene|Scene|Armature.001
+    7400004: Armature.001|Armature.001Action.001
+    7400006: Armature.001|Armature.001|Scene|Scene
+    7400008: Armature.001|SphereAction
+    9500000: //RootNode
+    10800000: Light
+    10800002: Light.001
+    13700000: Cube.000
+    13700002: Cube.001
+    13700004: Cube.002
+    13700006: Cube.003
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
