@@ -6,6 +6,13 @@ TagManager:
   tags:
   - Penguin
   - notWalkable
+  - SpawnableProjectile
+  - Bear
+  - projectile
+  - FxTemporaire
+  - PenguinSphere
+  - PenguinSnawball
+  - PlayerSnowball
   layers:
   - Default
   - TransparentFX

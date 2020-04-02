@@ -63,6 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_prefabs\SnawBallVariant.cs" />
+    <Compile Include="Assets\_prefabs\SnowBall.cs" />
     <Compile Include="Assets\_scripts\BearMovementLegacy.cs" />
     <Compile Include="Assets\_scripts\HandsController.cs" />
     <Compile Include="Assets\_scripts\LoggingDemo.cs" />
@@ -75,6 +77,7 @@
     <Compile Include="Assets\_scripts_penguin\goHome.cs" />
     <Compile Include="Assets\_scripts_penguin\Health.cs" />
     <Compile Include="Assets\_scripts_penguin\penguinAI.cs" />
+    <Compile Include="Assets\_scripts_penguin\penguinDetectSnowball.cs" />
     <Compile Include="Assets\_SteamVr\SteamVR\Extras\SteamVR_GazeTracker.cs" />
     <Compile Include="Assets\_SteamVr\SteamVR\Extras\SteamVR_TestThrow.cs" />
     <Compile Include="Assets\_SteamVr\SteamVR\Extras\SteamVR_TestTrackedCamera.cs" />
@@ -244,6 +247,11 @@
     <Compile Include="Assets\Penguin\Scripts\LocomotionSimpleAgent.cs" />
     <Compile Include="Assets\Penguin\Scripts\LookAt.cs" />
     <Compile Include="Assets\Penguin\Scripts\SimpleMovement.cs" />
+    <Compile Include="Assets\Player_capsule\FPSInput.cs" />
+    <Compile Include="Assets\Player_capsule\MouseLook.cs" />
+    <Compile Include="Assets\Player_capsule\RayShooter.cs" />
+    <Compile Include="Assets\Player_capsule\ThrowSnowBall.cs" />
+    <Compile Include="Assets\turnToThePlayer.cs" />
     <Compile Include="Assets\Winterland\Standard Assets\CrossPlatformInput\Scripts\AxisTouchButton.cs" />
     <Compile Include="Assets\Winterland\Standard Assets\CrossPlatformInput\Scripts\ButtonHandler.cs" />
     <Compile Include="Assets\Winterland\Standard Assets\CrossPlatformInput\Scripts\CrossPlatformInputManager.cs" />
@@ -498,6 +506,9 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.13f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="Valve.Newtonsoft.Json">
+      <HintPath>A:/UIR/penguin/Assets/_SteamVr/SteamVR/Input/Plugins/JSON.NET/Valve.Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>A:/UIR/penguin/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
@@ -506,9 +517,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>A:/UIR/penguin/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="Valve.Newtonsoft.Json">
-      <HintPath>A:/UIR/penguin/Assets/_SteamVr/SteamVR/Input/Plugins/JSON.NET/Valve.Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.13f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
