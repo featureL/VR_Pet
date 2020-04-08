@@ -19,4 +19,9 @@ public class penguinDetectSnowball : MonoBehaviour
             _penguinAI.hitReaction();
         }
     }
+
+    public void hello()
+    {
+
+    }
 }

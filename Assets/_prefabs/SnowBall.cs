@@ -16,7 +16,7 @@ public class SnowBall : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        //Debug.Log("destroyed");
+        Debug.Log("destroyed");
         Destroy(this.gameObject);
 
     }

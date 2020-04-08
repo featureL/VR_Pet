@@ -42,13 +42,18 @@ public class penguinAI : MonoBehaviour
 
 
     public Actions _lastAction;
+    private float distHungry;
+    private float distSleep;
+    private float distStayInFrontOfPlayer;
+
+
 
 
 
 
 
     private float timer;
-    private Transform target;
+    private Transform target = null;
     public float turnSpeed = 1.0f;
     public enum Actions
     {
@@ -69,7 +74,7 @@ public class penguinAI : MonoBehaviour
     
     void Update()
     {
-        Debug.Log(agent.remainingDistance);
+
         //Поворачивается к игроку и машет ему 
         if (Input.GetKeyDown(KeyCode.K) && !isSleep && !Stop)
         {
@@ -96,8 +101,8 @@ public class penguinAI : MonoBehaviour
             Stop = true;
             Debug.Log("Hungry");
             isCoroutineExecuting = false;
-            Move(PlayerPosition.transform.position);
-            isStayingInFrontOfPlayer = true;
+            Move(BasketFishPosition.transform.position);
+            isHungry = true;
 
         }
         //Отворачивается от игрока
@@ -112,38 +117,54 @@ public class penguinAI : MonoBehaviour
             _lastAction = Actions.TurningFromThePlayer;
             isTurning = true;
             
+            
         }
+
+        distStayInFrontOfPlayer = (agent.pathPending && isStayingInFrontOfPlayer)
+            ? Vector3.Distance(transform.position, PlayerPosition.transform.position)
+            : agent.remainingDistance;
+        distHungry = (agent.pathPending && isHungry)
+            ? Vector3.Distance(transform.position, BasketFishPosition.transform.position)
+            : agent.remainingDistance;
+        distSleep = (agent.pathPending && isSleep)
+            ? Vector3.Distance(transform.position, penguinHome.transform.position)
+            : agent.remainingDistance;
 
         if (isTurning && !isSleep)
         {
             Rotate();
         }
-        if ((agent.remainingDistance == 0 && !isCoroutineExecutingHungry && !isCoroutineExecutingSleep && !isCoroutineExecutingStayingInFrontOfPlayer) && (isSleep || isHungry || isStayingInFrontOfPlayer))
+
+        if(distHungry == 0  && !isCoroutineExecutingHungry && isHungry)
         {
-            if (isHungry)
-                StartCoroutine(Hungrying());
-            else if (isSleep)
-                StartCoroutine(Sleeping());
-            else if (isStayingInFrontOfPlayer)
+            StartCoroutine(Hungrying());   
+        }
+        if (distSleep == 0  && !isCoroutineExecutingSleep && isSleep)
+        {
+            StartCoroutine(Sleeping());
+        }
+        if (distStayInFrontOfPlayer == 0  && !isCoroutineExecutingStayingInFrontOfPlayer  &&  isStayingInFrontOfPlayer)
+        {
+
                 StartCoroutine(StayingInFrontOfPlayer());
         }
         // Проверяется , не в пути ли пингвин , либо он еще не достоял свое. 
 
-        if (!isCoroutineExecuting && agent.remainingDistance < 0.3 && !isSleep && !isHungry && !Stop)
+        if (!isCoroutineExecuting && agent.remainingDistance == 0 && !isSleep && !isHungry && !Stop)
         {
-            //Выбирается действие для пингвина. 
+            //Choose the action (Penguin). 
             int rand = Random.Range(0, 22);
-            if (rand > 0 && rand < 22)
+            if (rand > 23 && rand < 22)
             {
                 Debug.Log("Move");
                 Move();
             }
-            else if (rand > 12 && rand < 18)
+            else if (rand > 0 && rand < 22)
             {
                 Debug.Log("Stay");
                 StartCoroutine(Stay());
             }
-            else if (rand > 18 && rand < 22)
+            else if (rand > 22 && rand < 22)
             {
                 Sleep(new object());
             }
@@ -187,7 +208,10 @@ public class penguinAI : MonoBehaviour
         // Calculate a rotation a step closer to the target and applies rotation to this object
         transform.rotation = Quaternion.LookRotation(newDirection);
     }
-
+    IEnumerator WaitForNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+    }
     IEnumerator StayingInFrontOfPlayer()
     {
         if (isCoroutineExecutingStayingInFrontOfPlayer)
@@ -202,14 +226,18 @@ public class penguinAI : MonoBehaviour
     }
     public void hitReaction()
     {
-        Stop = true;
-        Debug.Log("Snow hit");
-        isCoroutineExecuting = false;
-        agent.SetDestination(transform.position);
-        GetComponent<Animator>().SetBool("isWalking", false);
-        GetComponent<Animator>().SetBool("isStaying", true);
-        _lastAction = Actions.Hitted;
-        isTurning = true;
+        if(!isSleep && !Stop)
+        {
+            Stop = true;
+            Debug.Log("Snow hit");
+            isCoroutineExecuting = false;
+            agent.SetDestination(transform.position);
+            GetComponent<Animator>().SetBool("isWalking", false);
+            GetComponent<Animator>().SetBool("isStaying", true);
+            _lastAction = Actions.Hitted;
+            isTurning = true;
+        }
+
     }
     IEnumerator hitReactionCoroutine()
     {
@@ -257,7 +285,6 @@ public class penguinAI : MonoBehaviour
         NavMeshHit navHit;
         NavMesh.SamplePosition(randomDirection, out navHit, _maxDistance, _layermask);
         agent.SetDestination(navHit.position);
-        return;
     }
     IEnumerator Hungrying()
     {
@@ -284,7 +311,6 @@ public class penguinAI : MonoBehaviour
         NavMeshHit navHit;
         NavMesh.SamplePosition(pos, out navHit, _maxDistance, _layermask);
         agent.SetDestination(navHit.position);
-        return;
     }
 
     IEnumerator Stay()
