@@ -154,17 +154,17 @@ public class penguinAI : MonoBehaviour
         {
             //Choose the action (Penguin). 
             int rand = Random.Range(0, 22);
-            if (rand > 23 && rand < 22)
+            if (rand > 0 && rand < 14)
             {
                 Debug.Log("Move");
                 Move();
             }
-            else if (rand > 0 && rand < 22)
+            else if (rand > 14 && rand < 22)
             {
                 Debug.Log("Stay");
                 StartCoroutine(Stay());
             }
-            else if (rand > 22 && rand < 22)
+            else if (rand > 20 && rand < 22)
             {
                 Sleep(new object());
             }
@@ -262,7 +262,9 @@ public class penguinAI : MonoBehaviour
         yield return new WaitForSeconds(1);
         GetComponent<Animator>().SetBool("isWaving", false);
         GetComponent<Animator>().SetBool("isStaying", true);
-        yield return new WaitForEndOfFrame();
+        StartCoroutine(StayCurrentTime());
+        yield return new WaitForSeconds(1.5f);
+        //yield return new WaitForEndOfFrame();
         Stop = false;
     }
     IEnumerator TurnFromThePLayer()
@@ -326,6 +328,22 @@ public class penguinAI : MonoBehaviour
         isCoroutineExecuting = false;
         GetComponent<Animator>().SetBool("isStaying", false);
     }
+
+    IEnumerator StayCurrentTime()
+    {
+        _lastAction = Actions.Stay;
+        if (isCoroutineExecuting)
+            yield break;
+        GetComponent<Animator>().SetBool("isWalking", false);
+        GetComponent<Animator>().SetBool("isStaying", true);
+        isCoroutineExecuting = true;
+        //Время , которое пингвин стоит на месте. 
+        yield return new WaitForSeconds(1.5f);
+        isCoroutineExecuting = false;
+        GetComponent<Animator>().SetBool("isStaying", false);
+    }
+
+
 
     public void Sleep(object num)
     {
