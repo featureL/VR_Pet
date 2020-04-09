@@ -8,16 +8,13 @@ public class SnowBall : MonoBehaviour
     public int damage = 1;
 
 
-    void Update()
-    {
-        transform.Translate(0, 0, speed * Time.deltaTime);
-    }
 
     private void OnTriggerEnter(Collider other)
     {
-
-        Debug.Log("destroyed");
-        Destroy(this.gameObject);
-
+        if(other.tag == "PenguinSphere")
+        {
+            Debug.Log("destroyed");
+            Destroy(this.gameObject);
+        }
     }
 }

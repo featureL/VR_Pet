@@ -115,9 +115,7 @@ public class penguinAI : MonoBehaviour
             GetComponent<Animator>().SetBool("isWalking", false);
             GetComponent<Animator>().SetBool("isStaying", true);
             _lastAction = Actions.TurningFromThePlayer;
-            isTurning = true;
-            
-            
+            isTurning = true;         
         }
 
         distStayInFrontOfPlayer = (agent.pathPending && isStayingInFrontOfPlayer)
@@ -241,18 +239,48 @@ public class penguinAI : MonoBehaviour
     }
     IEnumerator hitReactionCoroutine()
     {
-        GetComponent<Animator>().SetBool("isThrowingAtThePlayer", true);
-        GetComponent<Animator>().SetBool("isStaying", false);
-        _snowball = Instantiate(snowBall) as GameObject;
-        Vector3 snowBallPosition = GameObject.Find("RightArm").transform.position;
-        snowBallPosition.x -= 0.5f;
-        snowBallPosition.z -= 0.5f;
-        _snowball.transform.position = snowBallPosition;
-        _snowball.transform.rotation = transform.rotation;
-        yield return new WaitForSeconds(0.5f);
-        GetComponent<Animator>().SetBool("isThrowingAtThePlayer", false);
-        GetComponent<Animator>().SetBool("isStaying", true);
-        Stop = false;
+        int randomNum = Random.Range(0, 2);
+
+        if(randomNum == 0)
+        {
+            GetComponent<Animator>().SetBool("isThrowingAtThePlayer", true);
+            GetComponent<Animator>().SetBool("isStaying", false);
+            _snowball = Instantiate(snowBall) as GameObject;
+            Vector3 snowBallPosition = GameObject.Find("RightArm").transform.position;
+            snowBallPosition.x -= 0.5f;
+            snowBallPosition.z -= 0.5f;
+            _snowball.transform.position = snowBallPosition;
+            _snowball.transform.rotation = transform.rotation;
+            yield return new WaitForSeconds(0.5f);
+            GetComponent<Animator>().SetBool("isThrowingAtThePlayer", false);
+            GetComponent<Animator>().SetBool("isStaying", true);
+            yield return new WaitForEndOfFrame();
+            Stop = false;
+        }
+        else if(randomNum == 1)
+        {
+            Debug.Log("RandomNum");
+            Debug.Log(randomNum);
+            GetComponent<Animator>().SetBool("isThrowingAside", true);
+            GetComponent<Animator>().SetBool("isStaying", false);
+            _snowball = Instantiate(snowBall) as GameObject;
+            Vector3 snowBallPosition = GameObject.Find("RightForeArm_end").transform.position;
+            //snowBallPosition.x -= 0.5f;
+            //snowBallPosition.z -= 0.5f;
+            //Vector3 snowBallRotation = new Vector3(0, 90, 45);
+            //_snowball.transform.eulerAngles = snowBallRotation;
+            _snowball.transform.position = snowBallPosition;
+            _snowball.transform.Rotate(40, -90, 0);
+            yield return new WaitForSeconds(0.5f);
+            GetComponent<Animator>().SetBool("isThrowingAside", false);
+            GetComponent<Animator>().SetBool("isStaying", true);
+            yield return new WaitForEndOfFrame();
+            Debug.Log("Turn from the player");
+            isCoroutineExecuting = false;
+            _lastAction = Actions.TurningFromThePlayer;
+            isTurning = true;
+        }
+
     }
 
     IEnumerator Waving()
