@@ -41,7 +41,9 @@ public class penguinAI : MonoBehaviour
     [SerializeField] private GameObject BasketSnowBallPosition;
     [SerializeField] private GameObject BasketSnowBall;
 
-    [SerializeField] private AudioClip clip;
+    [SerializeField] private AudioClip clipPenguinSounds;
+    [SerializeField] private AudioClip clipHey;
+    [SerializeField] private GameObject PlayerVR;
 
 
     public int sleepingTime = 10;
@@ -81,11 +83,17 @@ public class penguinAI : MonoBehaviour
     
     void Update()
     {
+        //Игрок говорит "hey"
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            PlayerVR.GetComponent<AudioSource>().PlayOneShot(clipHey);
+        }
 
         //Поворачивается к игроку и машет ему 
         if (Input.GetKeyDown(KeyCode.K) && !isSleep && !Stop)
         {
             Stop = true;
+            PlayerVR.GetComponent<AudioSource>().PlayOneShot(clipHey);
             Debug.Log("Hello");
             isCoroutineExecuting = false;
             agent.SetDestination(transform.position);
@@ -126,6 +134,7 @@ public class penguinAI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L) && !isSleep && !Stop)
         {
             Stop = true;
+            PlayerVR.GetComponent<AudioSource>().PlayOneShot(clipHey);
             Debug.Log("Turn from the player");
             isCoroutineExecuting = false;
             agent.SetDestination(transform.position);
@@ -350,7 +359,7 @@ public class penguinAI : MonoBehaviour
         transform.LookAt(BasketFish.transform);
         GetComponent<Animator>().SetBool("isStaying", false);
         GetComponent<Animator>().SetBool("isLowerTheHead", true);
-        GetComponent<AudioSource>().PlayOneShot(clip);
+        GetComponent<AudioSource>().PlayOneShot(clipPenguinSounds);
         yield return new WaitForSeconds(4);
         GetComponent<AudioSource>().Stop();
         isHungry = false;
@@ -370,7 +379,7 @@ public class penguinAI : MonoBehaviour
         transform.LookAt(BasketSnowBall.transform);
         GetComponent<Animator>().SetBool("isStaying", false);
         GetComponent<Animator>().SetBool("isLowerTheHead", true);
-        GetComponent<AudioSource>().PlayOneShot(clip);
+        GetComponent<AudioSource>().PlayOneShot(clipPenguinSounds);
         yield return new WaitForSeconds(4);
         GetComponent<AudioSource>().Stop();
         isPlayful = false;
