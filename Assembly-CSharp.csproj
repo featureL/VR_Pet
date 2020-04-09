@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{7C6733E3-8DA5-A146-6045-A28E3BA86A09}</ProjectGuid>
+    <ProjectGuid>{3A5F4140-147D-8A92-B827-E3FA64DE9842}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_prefabs\setSnawBallTag.cs" />
     <Compile Include="Assets\_prefabs\SnawBallVariant.cs" />
     <Compile Include="Assets\_prefabs\SnowBall.cs" />
     <Compile Include="Assets\_scripts\BearMovementLegacy.cs" />
@@ -126,31 +127,31 @@
     <None Include="Assets\Winterland\info.txt" />
     <None Include="Assets\Winterland\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <Reference Include="Supyrb.Editor">
-      <HintPath>A:/UIR/penguin/Library/ScriptAssemblies/Supyrb.Editor.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/ScriptAssemblies/Supyrb.Editor.dll</HintPath>
     </Reference>
     <Reference Include="VRTK.Prefabs.Runtime">
-      <HintPath>A:/UIR/penguin/Library/ScriptAssemblies/VRTK.Prefabs.Runtime.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/ScriptAssemblies/VRTK.Prefabs.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Zinnia.Editor">
-      <HintPath>A:/UIR/penguin/Library/ScriptAssemblies/Zinnia.Editor.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/ScriptAssemblies/Zinnia.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>A:/UIR/penguin/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>A:/UIR/penguin/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>A:/UIR/penguin/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Zinnia.Runtime">
-      <HintPath>A:/UIR/penguin/Library/ScriptAssemblies/Zinnia.Runtime.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/ScriptAssemblies/Zinnia.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>A:/UIR/penguin/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>A:/UIR/penguin/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -354,28 +355,28 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.13f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>A:/UIR/penguin/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>A:/UIR/penguin/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>A:/UIR/penguin/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="Malimbe.BehaviourStateRequirementMethod">
-      <HintPath>A:/UIR/penguin/Library/PackageCache/io.extendreality.malimbe@9.6.5/Runtime/Malimbe.BehaviourStateRequirementMethod.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/PackageCache/io.extendreality.malimbe@9.6.5/Runtime/Malimbe.BehaviourStateRequirementMethod.dll</HintPath>
     </Reference>
     <Reference Include="Malimbe.MemberChangeMethod">
-      <HintPath>A:/UIR/penguin/Library/PackageCache/io.extendreality.malimbe@9.6.5/Runtime/Malimbe.MemberChangeMethod.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/PackageCache/io.extendreality.malimbe@9.6.5/Runtime/Malimbe.MemberChangeMethod.dll</HintPath>
     </Reference>
     <Reference Include="Malimbe.MemberClearanceMethod">
-      <HintPath>A:/UIR/penguin/Library/PackageCache/io.extendreality.malimbe@9.6.5/Runtime/Malimbe.MemberClearanceMethod.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/PackageCache/io.extendreality.malimbe@9.6.5/Runtime/Malimbe.MemberClearanceMethod.dll</HintPath>
     </Reference>
     <Reference Include="Malimbe.PropertySerializationAttribute">
-      <HintPath>A:/UIR/penguin/Library/PackageCache/io.extendreality.malimbe@9.6.5/Runtime/Malimbe.PropertySerializationAttribute.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/PackageCache/io.extendreality.malimbe@9.6.5/Runtime/Malimbe.PropertySerializationAttribute.dll</HintPath>
     </Reference>
     <Reference Include="Malimbe.XmlDocumentationAttribute">
-      <HintPath>A:/UIR/penguin/Library/PackageCache/io.extendreality.malimbe@9.6.5/Runtime/Malimbe.XmlDocumentationAttribute.dll</HintPath>
+      <HintPath>A:/UIR/penguin/VR_Pet/Library/PackageCache/io.extendreality.malimbe@9.6.5/Runtime/Malimbe.XmlDocumentationAttribute.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.13f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -725,11 +726,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="NavMeshComponentsEditor.csproj">
-      <Project>{AC159B5D-7066-B33A-5618-FAF8EDF061D9}</Project>
+      <Project>{04907769-A832-309F-9D1D-90D3940E2630}</Project>
       <Name>NavMeshComponentsEditor</Name>
     </ProjectReference>
     <ProjectReference Include="NavMeshComponents.csproj">
-      <Project>{FBB264BD-1B91-85B0-B017-B01A201D4553}</Project>
+      <Project>{6FF9363B-851A-BB3B-2E6B-997BC3936A36}</Project>
       <Name>NavMeshComponents</Name>
     </ProjectReference>
   </ItemGroup>

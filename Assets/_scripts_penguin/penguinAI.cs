@@ -21,9 +21,11 @@ public class penguinAI : MonoBehaviour
     private bool isCoroutineExecutingSleep = false;
     private bool isCoroutineExecutingHungry = false;
     private bool isCoroutineExecutingStayingInFrontOfPlayer = false;
+    private bool isCoroutineExecutingPlayful = false;
     private bool isSleep = false;
     public bool Stop = false;
     private bool isHungry = false;
+    private bool isPlayful = false;
     private bool isTurning = false;
     private bool isStayingInFrontOfPlayer = false;
 
@@ -31,11 +33,15 @@ public class penguinAI : MonoBehaviour
 
     private float _stayTime = 5.0f;
 
-    public GameObject penguinHome;
-    public GameObject Player;
-    public GameObject BasketFishPosition;
-    public GameObject BasketFish;
-    public GameObject PlayerPosition;
+    [SerializeField] private GameObject penguinHome;
+    [SerializeField] private GameObject Player;
+    [SerializeField] private GameObject BasketFishPosition;
+    [SerializeField] private GameObject BasketFish;
+    [SerializeField] private GameObject PlayerPosition;
+    [SerializeField] private GameObject BasketSnowBallPosition;
+    [SerializeField] private GameObject BasketSnowBall;
+
+    [SerializeField] private AudioClip clip;
 
 
     public int sleepingTime = 10;
@@ -45,6 +51,7 @@ public class penguinAI : MonoBehaviour
     private float distHungry;
     private float distSleep;
     private float distStayInFrontOfPlayer;
+    private float distPlayful;
 
 
 
@@ -105,6 +112,16 @@ public class penguinAI : MonoBehaviour
             isHungry = true;
 
         }
+        //Подходит к корзине с снежками и смотрит в нее
+        if (Input.GetKeyDown(KeyCode.G) && !isSleep && !Stop)
+        {
+            Stop = true;
+            Debug.Log("Playful");
+            isCoroutineExecuting = false;
+            Move(BasketSnowBallPosition.transform.position);
+            isPlayful = true;
+
+        }
         //Отворачивается от игрока
         if (Input.GetKeyDown(KeyCode.L) && !isSleep && !Stop)
         {
@@ -118,6 +135,9 @@ public class penguinAI : MonoBehaviour
             isTurning = true;         
         }
 
+        distPlayful = (agent.pathPending && isPlayful)
+            ? Vector3.Distance(transform.position, BasketSnowBallPosition.transform.position)
+            : agent.remainingDistance;
         distStayInFrontOfPlayer = (agent.pathPending && isStayingInFrontOfPlayer)
             ? Vector3.Distance(transform.position, PlayerPosition.transform.position)
             : agent.remainingDistance;
@@ -127,7 +147,11 @@ public class penguinAI : MonoBehaviour
         distSleep = (agent.pathPending && isSleep)
             ? Vector3.Distance(transform.position, penguinHome.transform.position)
             : agent.remainingDistance;
-
+        
+        if(distPlayful ==0 && !isCoroutineExecutingPlayful && isPlayful)
+        {
+            StartCoroutine(Playfullying());
+        }
         if (isTurning && !isSleep)
         {
             Rotate();
@@ -326,13 +350,36 @@ public class penguinAI : MonoBehaviour
         transform.LookAt(BasketFish.transform);
         GetComponent<Animator>().SetBool("isStaying", false);
         GetComponent<Animator>().SetBool("isLowerTheHead", true);
+        GetComponent<AudioSource>().PlayOneShot(clip);
         yield return new WaitForSeconds(4);
+        GetComponent<AudioSource>().Stop();
         isHungry = false;
         isCoroutineExecutingHungry = false;
         GetComponent<Animator>().SetBool("isLowerTheHead", false);
         GetComponent<Animator>().SetBool("isStaying", true);
         Stop = false;
+    }
 
+    IEnumerator Playfullying()
+    {
+        if (isCoroutineExecutingPlayful)
+            yield break;
+        isCoroutineExecutingPlayful = true;
+        GetComponent<Animator>().SetBool("isWalking", false);
+        GetComponent<Animator>().SetBool("isStaying", true);
+        transform.LookAt(BasketSnowBall.transform);
+        GetComponent<Animator>().SetBool("isStaying", false);
+        GetComponent<Animator>().SetBool("isLowerTheHead", true);
+        GetComponent<AudioSource>().PlayOneShot(clip);
+        yield return new WaitForSeconds(4);
+        GetComponent<AudioSource>().Stop();
+        isPlayful = false;
+        isCoroutineExecutingPlayful = false;
+        GetComponent<Animator>().SetBool("isLowerTheHead", false);
+        GetComponent<Animator>().SetBool("isStaying", true);
+        yield return new WaitForEndOfFrame();
+        Move(_origin);
+        Stop = false;
     }
     public void Move(Vector3 pos)
     {
