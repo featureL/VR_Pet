@@ -9529,9 +9529,10 @@ GameObject:
   - component: {fileID: 5182810948142611960}
   - component: {fileID: 7155580923793103238}
   - component: {fileID: 1992176336598350627}
+  - component: {fileID: 114321246204392224}
   m_Layer: 0
-  m_Name: Fish 1
-  m_TagString: Untagged
+  m_Name: Fish
+  m_TagString: PlayerFish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9633,18 +9634,7 @@ MonoBehaviour:
     field: {fileID: 0}
   CollisionStarted:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3002899151422572960}
-        m_MethodName: DoExtract
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   CollisionChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9662,6 +9652,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &114321246204392224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8673635989367816700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017ba1cb4d7498249a57dfaf55d0dbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8714193471610173948
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,10 +13,16 @@ public class penguinDetectSnowball : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //SnowBall snowball = other.GetComponent<SnowBall>();
+        
         if(other.tag == "PlayerSnowball")
         {
             Debug.Log("Snowhit");
             _penguinAI.hitReaction();
+        }
+        else if(other.tag == "PlayerFish")
+        {
+            Debug.Log("Fishhit");
+            _penguinAI.hitReactionFish();
         }
     }
 

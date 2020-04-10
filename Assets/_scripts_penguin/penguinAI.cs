@@ -10,6 +10,8 @@ public class penguinAI : MonoBehaviour
 
     [SerializeField] private GameObject snowBall;
     private GameObject _snowball;
+    [SerializeField] private GameObject fish;
+    private GameObject _fish;
 
 
     private int _layermask = -1;
@@ -71,7 +73,8 @@ public class penguinAI : MonoBehaviour
         Sleep,
         Hitted,
         Waving,
-        TurningFromThePlayer
+        TurningFromThePlayer,
+        HittedFish
     }
     void Start()
     {
@@ -234,6 +237,10 @@ public class penguinAI : MonoBehaviour
             {
                 StartCoroutine(TurnFromThePLayer());
             }
+            else if (_lastAction == Actions.HittedFish)
+            {
+                StartCoroutine(hitReactionFishCoroutine());
+            }
 
         }
         // Calculate a rotation a step closer to the target and applies rotation to this object
@@ -255,6 +262,21 @@ public class penguinAI : MonoBehaviour
         isStayingInFrontOfPlayer = false;
         Stop = false;
     }
+
+    public void hitReactionFish()
+    {
+        if (!isSleep && !Stop)
+        {
+            Stop = true;
+            Debug.Log("Snow hit");
+            isCoroutineExecuting = false;
+            agent.SetDestination(transform.position);
+            GetComponent<Animator>().SetBool("isWalking", false);
+            GetComponent<Animator>().SetBool("isStaying", true);
+            _lastAction = Actions.HittedFish;
+            isTurning = true;
+        }
+    }
     public void hitReaction()
     {
         if(!isSleep && !Stop)
@@ -269,6 +291,23 @@ public class penguinAI : MonoBehaviour
             isTurning = true;
         }
 
+    }
+    IEnumerator hitReactionFishCoroutine()
+    {
+        GetComponent<Animator>().SetBool("isThrowingAside", true);
+        GetComponent<Animator>().SetBool("isStaying", false);
+        _fish = Instantiate(fish) as GameObject;
+        Vector3 fishPosition = GameObject.Find("RightForeArm_end").transform.position;
+        _fish.transform.position = fishPosition;
+        _fish.transform.Rotate(40, -90, 0);
+        yield return new WaitForSeconds(0.5f);
+        GetComponent<Animator>().SetBool("isThrowingAside", false);
+        GetComponent<Animator>().SetBool("isStaying", true);
+        yield return new WaitForEndOfFrame();
+        Debug.Log("Turn from the player");
+        isCoroutineExecuting = false;
+        _lastAction = Actions.TurningFromThePlayer;
+        isTurning = true;
     }
     IEnumerator hitReactionCoroutine()
     {

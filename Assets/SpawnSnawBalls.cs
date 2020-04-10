@@ -33,7 +33,7 @@ public class SpawnSnawBalls : MonoBehaviour
                 countSnowBall++;
                 StartCoroutine(WaitOneSecondSnowBall());
         }
-        if (countFish < 60 && !isCoroutineExecutingFish)
+        if (countFish < 45 && !isCoroutineExecutingFish)
         {
 
             _fish = Instantiate(fish) as GameObject;
