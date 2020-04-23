@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class setSnawBallTag : MonoBehaviour
 {
+    [SerializeField] private GameObject sphere;
     public void SetTeg()
     {
-        GetComponent<GameObject>().gameObject.tag = "PlayerSnowball";
+        Debug.Log("hahashsah");
+        sphere.gameObject.tag = "PlayerSnowball";
     }
 }

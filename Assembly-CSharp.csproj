@@ -68,6 +68,9 @@
     <Compile Include="Assets\_prefabs\setSnawBallTag.cs" />
     <Compile Include="Assets\_prefabs\SnawBallVariant.cs" />
     <Compile Include="Assets\_prefabs\SnowBall.cs" />
+    <Compile Include="Assets\_prefabs\SnowBallDestroy.cs" />
+    <Compile Include="Assets\_prefabs\spownFish.cs" />
+    <Compile Include="Assets\_prefabs\WaitForFish.cs" />
     <Compile Include="Assets\_scripts\BearMovementLegacy.cs" />
     <Compile Include="Assets\_scripts\HandsController.cs" />
     <Compile Include="Assets\_scripts\LoggingDemo.cs" />

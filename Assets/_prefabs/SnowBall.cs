@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SnowBall : MonoBehaviour
 {
+    [SerializeField] private GameObject sphere;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "PenguinSphere")
+        if(sphere.gameObject.tag == "PlayerSnowball" && (other.name == "Environment" || other.tag == "PenguinSphere"))
         {
-            Debug.Log("destroyed");
             Destroy(this.gameObject);
         }
     }

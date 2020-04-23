@@ -11,7 +11,10 @@ public class penguinAI : MonoBehaviour
     [SerializeField] private GameObject snowBall;
     private GameObject _snowball;
     [SerializeField] private GameObject fish;
+    [SerializeField] private GameObject fishEating;
     private GameObject _fish;
+    private GameObject _fishEating;
+    [SerializeField] private GameObject fishPosition;
 
 
     private int _layermask = -1;
@@ -74,7 +77,9 @@ public class penguinAI : MonoBehaviour
         Hitted,
         Waving,
         TurningFromThePlayer,
-        HittedFish
+        HittedFish,
+        Eating,
+        WaitingForFish
     }
     void Start()
     {
@@ -86,6 +91,7 @@ public class penguinAI : MonoBehaviour
     
     void Update()
     {
+        
         //Игрок говорит "hey"
         if(Input.GetKeyDown(KeyCode.F))
         {
@@ -133,6 +139,17 @@ public class penguinAI : MonoBehaviour
             isPlayful = true;
 
         }
+        if (Input.GetKeyDown(KeyCode.U) && !isSleep && !Stop)
+        {
+            Stop = true;
+            isCoroutineExecuting = false;
+            Debug.Log("Eating");
+            agent.SetDestination(transform.position);
+            isCoroutineExecuting = false;
+            _lastAction = Actions.Eating;
+            StartCoroutine(Eating());
+
+        }
         //Отворачивается от игрока
         if (Input.GetKeyDown(KeyCode.L) && !isSleep && !Stop)
         {
@@ -145,6 +162,17 @@ public class penguinAI : MonoBehaviour
             GetComponent<Animator>().SetBool("isStaying", true);
             _lastAction = Actions.TurningFromThePlayer;
             isTurning = true;         
+        }
+        //Ждет рыбу
+        if (Input.GetKeyDown(KeyCode.Y) && !isSleep && !Stop)
+        {
+            Stop = true;
+            isCoroutineExecuting = false;
+            agent.SetDestination(transform.position);
+            GetComponent<Animator>().SetBool("isWalking", false);
+            GetComponent<Animator>().SetBool("isStaying", true);
+            _lastAction = Actions.WaitingForFish;
+            isTurning = true;
         }
 
         distPlayful = (agent.pathPending && isPlayful)
@@ -221,7 +249,6 @@ public class penguinAI : MonoBehaviour
         // Rotate the forward vector towards the target direction by one step
         Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
 
-        Debug.Log(Vector3.Angle(transform.forward, targetDirection));
         if (Vector3.Angle(transform.forward, targetDirection) < 6)
         {
             isTurning = false;
@@ -241,6 +268,10 @@ public class penguinAI : MonoBehaviour
             {
                 StartCoroutine(hitReactionFishCoroutine());
             }
+            else if(_lastAction == Actions.WaitingForFish)
+            {
+                StartCoroutine(WaitingForFish());
+            }
 
         }
         // Calculate a rotation a step closer to the target and applies rotation to this object
@@ -249,6 +280,26 @@ public class penguinAI : MonoBehaviour
     IEnumerator WaitForNextFrame()
     {
         yield return new WaitForEndOfFrame();
+    }
+
+    IEnumerator Eating()
+    {
+        GetComponent<Animator>().SetBool("isWalking", false);
+        GetComponent<Animator>().SetBool("isStaying", true);
+        yield return new WaitForSeconds(0.2f);
+        GetComponent<Animator>().SetBool("isStaying", false);
+        GetComponent<Animator>().SetBool("isEating", true);
+        yield return new WaitForSeconds(0.3f);
+        Debug.Log("ha");
+        _fishEating =  Instantiate(fishEating) as GameObject;
+        _fishEating.transform.position = fishPosition.transform.position;
+        _fishEating.transform.eulerAngles = new Vector3(0, 0, 0);
+        yield return new WaitForSeconds(1f);
+        GetComponent<Animator>().SetBool("isEating", false);
+        GetComponent<Animator>().SetBool("isStaying", true);
+        Destroy(_fishEating.gameObject);
+        Stop = false;
+
     }
     IEnumerator StayingInFrontOfPlayer()
     {
@@ -267,14 +318,29 @@ public class penguinAI : MonoBehaviour
     {
         if (!isSleep && !Stop)
         {
-            Stop = true;
-            Debug.Log("Snow hit");
-            isCoroutineExecuting = false;
-            agent.SetDestination(transform.position);
-            GetComponent<Animator>().SetBool("isWalking", false);
-            GetComponent<Animator>().SetBool("isStaying", true);
-            _lastAction = Actions.HittedFish;
-            isTurning = true;
+            int rand = Random.Range(0, 3);
+            if(rand == 0)
+            {
+                Stop = true;
+                isCoroutineExecuting = false;
+                agent.SetDestination(transform.position);
+                GetComponent<Animator>().SetBool("isWalking", false);
+                GetComponent<Animator>().SetBool("isStaying", true);
+                _lastAction = Actions.HittedFish;
+                isTurning = true;
+            }
+            else if(rand == 1)
+            {
+                Stop = true;
+                isCoroutineExecuting = false;
+                Debug.Log("Eating");
+                agent.SetDestination(transform.position);
+                isCoroutineExecuting = false;
+                _lastAction = Actions.Eating;
+                StartCoroutine(Eating());
+            }
+            
+
         }
     }
     public void hitReaction()
@@ -282,7 +348,6 @@ public class penguinAI : MonoBehaviour
         if(!isSleep && !Stop)
         {
             Stop = true;
-            Debug.Log("Snow hit");
             isCoroutineExecuting = false;
             agent.SetDestination(transform.position);
             GetComponent<Animator>().SetBool("isWalking", false);
@@ -355,6 +420,16 @@ public class penguinAI : MonoBehaviour
 
     }
 
+    public void WaitForFish()
+    {
+        Stop = true;
+        isCoroutineExecuting = false;
+        agent.SetDestination(transform.position);
+        GetComponent<Animator>().SetBool("isWalking", false);
+        GetComponent<Animator>().SetBool("isStaying", true);
+        _lastAction = Actions.WaitingForFish;
+        isTurning = true;
+    }
     IEnumerator Waving()
     {
         GetComponent<Animator>().SetBool("isStaying", false);
@@ -372,6 +447,18 @@ public class penguinAI : MonoBehaviour
         Vector3 position = transform.position;
         Move(transform.position + 3*transform.forward);
         yield return new WaitForEndOfFrame();
+        Stop = false;
+    }
+
+    IEnumerator WaitingForFish()
+    {
+        GetComponent<Animator>().SetBool("isStaying", false);
+        GetComponent<Animator>().SetBool("isWaitingForFish", true);
+        GetComponent<AudioSource>().PlayOneShot(clipPenguinSounds);
+        yield return new WaitForSeconds(4f);
+        GetComponent<AudioSource>().Stop();
+        GetComponent<Animator>().SetBool("isWaitingForFish", false);
+        GetComponent<Animator>().SetBool("isStaying", true);
         Stop = false;
     }
 

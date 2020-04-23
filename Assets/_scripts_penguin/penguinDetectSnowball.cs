@@ -17,6 +17,7 @@ public class penguinDetectSnowball : MonoBehaviour
         if(other.tag == "PlayerSnowball")
         {
             Debug.Log("Snowhit");
+            Debug.Log(other.tag);
             _penguinAI.hitReaction();
         }
         else if(other.tag == "PlayerFish")
