@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Experimental.PlayerLoop;
 
 public class penguinAI : MonoBehaviour
 {
@@ -33,8 +35,10 @@ public class penguinAI : MonoBehaviour
     private bool isPlayful = false;
     private bool isTurning = false;
     private bool isStayingInFrontOfPlayer = false;
-
+    public bool waitingForFish = false;
+    private bool isWalking = false;
     private Vector3 _lastDestination;
+
 
     private float _stayTime = 5.0f;
 
@@ -59,7 +63,7 @@ public class penguinAI : MonoBehaviour
     private float distSleep;
     private float distStayInFrontOfPlayer;
     private float distPlayful;
-
+    private float distWalking;
 
 
 
@@ -68,7 +72,7 @@ public class penguinAI : MonoBehaviour
 
     private float timer;
     private Transform target = null;
-    public float turnSpeed = 1.0f;
+    public float turnSpeed = 2.0f;
     public enum Actions
     {
         Move,
@@ -79,7 +83,8 @@ public class penguinAI : MonoBehaviour
         TurningFromThePlayer,
         HittedFish,
         Eating,
-        WaitingForFish
+        WaitingForFish,
+        Happy
     }
     void Start()
     {
@@ -88,7 +93,7 @@ public class penguinAI : MonoBehaviour
         target = Player.transform;
     }
 
-    
+
     void Update()
     {
         
@@ -187,8 +192,12 @@ public class penguinAI : MonoBehaviour
         distSleep = (agent.pathPending && isSleep)
             ? Vector3.Distance(transform.position, penguinHome.transform.position)
             : agent.remainingDistance;
-        
-        if(distPlayful ==0 && !isCoroutineExecutingPlayful && isPlayful)
+        distWalking = (agent.pathPending && isWalking)
+            ? Vector3.Distance(transform.position, _lastDestination)
+            : agent.remainingDistance;
+
+
+        if (distPlayful ==0 && !isCoroutineExecutingPlayful && isPlayful)
         {
             StartCoroutine(Playfullying());
         }
@@ -211,11 +220,10 @@ public class penguinAI : MonoBehaviour
                 StartCoroutine(StayingInFrontOfPlayer());
         }
         // Проверяется , не в пути ли пингвин , либо он еще не достоял свое. 
-
-        if (!isCoroutineExecuting && agent.remainingDistance == 0 && !isSleep && !isHungry && !Stop)
+        if (!isCoroutineExecuting && distWalking < 0.1 && !isSleep && !isHungry && !Stop)
         {
             //Choose the action (Penguin). 
-            int rand = Random.Range(0, 22);
+            int rand = UnityEngine.Random.Range(0, 22);
             if (rand > 0 && rand < 14)
             {
                 Debug.Log("Move");
@@ -231,8 +239,49 @@ public class penguinAI : MonoBehaviour
                 Sleep(new object());
             }
         }
-        
 
+    }
+
+    private void FixedUpdate()
+    {
+        //Debug.Log(GetComponent<Animator>().GetBool(1));
+      
+
+    }
+
+
+
+    public void sad() {
+            Stop = true;
+            Debug.Log("Sad penguin");
+            isCoroutineExecuting = false;
+            agent.SetDestination(transform.position);
+            GetComponent<Animator>().SetBool("isWalking", false);
+            GetComponent<Animator>().SetBool("isStaying", true);
+            _lastAction = Actions.TurningFromThePlayer;
+            isTurning = true;
+    }
+    public void happy() {
+        Stop = true;
+        isCoroutineExecuting = false;
+        agent.SetDestination(transform.position);
+        GetComponent<Animator>().SetBool("isWalking", false);
+        GetComponent<Animator>().SetBool("isStaying", true);
+        _lastAction = Actions.Happy;
+        isTurning = true;
+    }
+
+    IEnumerator HappyPenguin() {
+        yield return new WaitForSeconds(0.5f);
+        GetComponent<Animator>().SetBool("isStaying", false);
+        GetComponent<Animator>().SetBool("isWaitingForFish", true);
+        GetComponent<AudioSource>().PlayOneShot(clipPenguinSounds);
+        Debug.Log("Happy penguin");
+        yield return new WaitForSeconds(2f);
+        GetComponent<AudioSource>().Stop();
+        GetComponent<Animator>().SetBool("isWaitingForFish", false);
+        GetComponent<Animator>().SetBool("isStaying", true);
+        Stop = false;
     }
     public void Rotate()
     {
@@ -271,6 +320,10 @@ public class penguinAI : MonoBehaviour
             else if(_lastAction == Actions.WaitingForFish)
             {
                 StartCoroutine(WaitingForFish());
+            }
+            else if(_lastAction == Actions.Happy)
+            {
+                StartCoroutine(HappyPenguin());
             }
 
         }
@@ -318,7 +371,7 @@ public class penguinAI : MonoBehaviour
     {
         if (!isSleep && !Stop)
         {
-            int rand = Random.Range(0, 3);
+            int rand = UnityEngine.Random.Range(0, 3);
             if(rand == 0)
             {
                 Stop = true;
@@ -376,7 +429,7 @@ public class penguinAI : MonoBehaviour
     }
     IEnumerator hitReactionCoroutine()
     {
-        int randomNum = Random.Range(0, 2);
+        int randomNum = UnityEngine.Random.Range(0, 2);
 
         if(randomNum == 0)
         {
@@ -429,6 +482,21 @@ public class penguinAI : MonoBehaviour
         GetComponent<Animator>().SetBool("isStaying", true);
         _lastAction = Actions.WaitingForFish;
         isTurning = true;
+        
+    }
+
+    IEnumerator reactionToFish()
+    {
+        yield return new WaitForSeconds(3);
+        Debug.Log("reactionToFish() " + waitingForFish);
+        if (waitingForFish)
+        {
+            Debug.Log("Ne dojdalsya ryby");
+        }
+        else
+        {
+            Debug.Log("Polychil ryby");
+        }
     }
     IEnumerator Waving()
     {
@@ -452,6 +520,7 @@ public class penguinAI : MonoBehaviour
 
     IEnumerator WaitingForFish()
     {
+        StartCoroutine(reactionToFish());
         GetComponent<Animator>().SetBool("isStaying", false);
         GetComponent<Animator>().SetBool("isWaitingForFish", true);
         GetComponent<AudioSource>().PlayOneShot(clipPenguinSounds);
@@ -473,6 +542,8 @@ public class penguinAI : MonoBehaviour
         randomDirection += _origin;
         NavMeshHit navHit;
         NavMesh.SamplePosition(randomDirection, out navHit, _maxDistance, _layermask);
+        _lastDestination = navHit.position;
+        isWalking = true;
         agent.SetDestination(navHit.position);
     }
     IEnumerator Hungrying()
@@ -522,6 +593,8 @@ public class penguinAI : MonoBehaviour
         GetComponent<Animator>().SetBool("isWalking", true);
         NavMeshHit navHit;
         NavMesh.SamplePosition(pos, out navHit, _maxDistance, _layermask);
+        _lastDestination = navHit.position;
+        isWalking = true;
         agent.SetDestination(navHit.position);
     }
 

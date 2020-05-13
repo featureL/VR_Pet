@@ -23,8 +23,11 @@ public class penguinDetectSnowball : MonoBehaviour
         else if(other.tag == "PlayerFish")
         {
             Debug.Log("Fishhit");
+            GetComponent<penguinAI>().waitingForFish = false;
+            Debug.Log("penguinDetectSnawBall " + GetComponent<penguinAI>().waitingForFish);
             _penguinAI.hitReactionFish();
         }
+        
     }
 
     public void hello()

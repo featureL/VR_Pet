@@ -8,6 +8,7 @@ public class WaitForFish : MonoBehaviour
     {
         GameObject penguin = GameObject.Find("Penguin");
         penguin.GetComponent<penguinAI>().WaitForFish();
+        penguin.GetComponent<penguinAI>().waitingForFish = true;
     }
 
 }

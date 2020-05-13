@@ -11,6 +11,7 @@ public class fishDestroyOnSphere : MonoBehaviour
         {
             penguin = GameObject.Find("Penguin");
             penguin.GetComponent<penguinAI>().hitReactionFish();
+            penguin.GetComponent<penguinAI>().waitingForFish = false;
             Debug.Log("FishHit from fish");
             Destroy(this.gameObject);
         }
