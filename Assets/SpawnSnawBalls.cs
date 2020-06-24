@@ -24,7 +24,7 @@ public class SpawnSnawBalls : MonoBehaviour
 
     private void Update()
     {
-        if(countSnowBall < 110 && !isCoroutineExecutingSnow)
+        if(countSnowBall < 100 && !isCoroutineExecutingSnow)
         {
 
                 _snowball = Instantiate(snowBall) as GameObject;

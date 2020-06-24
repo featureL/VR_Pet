@@ -16,16 +16,22 @@ public class penguinDetectSnowball : MonoBehaviour
         
         if(other.tag == "PlayerSnowball")
         {
-            Debug.Log("Snowhit");
-            Debug.Log(other.tag);
-            _penguinAI.hitReaction();
+            //_penguinAI.hitReaction();
+            //penguin.GetComponent<penguinModel>().launchNewScene("ThrowBallToPinguin");
+            string action = penguin.GetComponent<penguinModel>().launchNewScene("ThrowBallToPinguin");
+            //penguin.GetComponent<penguinAI>().PenguinActions("SadPenguinAfterHit");
+            penguin.GetComponent<penguinAI>().PenguinActions(action + " ThrowBallToPinguin");
+
         }
         else if(other.tag == "PlayerFish")
         {
-            Debug.Log("Fishhit");
+            Debug.Log("heheheheheheheheheheheh");
             GetComponent<penguinAI>().waitingForFish = false;
-            Debug.Log("penguinDetectSnawBall " + GetComponent<penguinAI>().waitingForFish);
-            _penguinAI.hitReactionFish();
+            //_penguinAI.hitReactionFish();
+            //penguin.GetComponent<penguinModel>().launchNewScene("FeedPinguin");
+            string action = penguin.GetComponent<penguinModel>().launchNewScene("FeedPinguin");
+            Debug.Log(action);
+            penguin.GetComponent<penguinAI>().PenguinActions(action + " FeedPinguin");
         }
         
     }

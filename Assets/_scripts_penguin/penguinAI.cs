@@ -29,7 +29,7 @@ public class penguinAI : MonoBehaviour
     private bool isCoroutineExecutingHungry = false;
     private bool isCoroutineExecutingStayingInFrontOfPlayer = false;
     private bool isCoroutineExecutingPlayful = false;
-    private bool isSleep = false;
+    public bool isSleep = false;
     public bool Stop = false;
     private bool isHungry = false;
     private bool isPlayful = false;
@@ -37,6 +37,8 @@ public class penguinAI : MonoBehaviour
     private bool isStayingInFrontOfPlayer = false;
     public bool waitingForFish = false;
     private bool isWalking = false;
+    private bool throwToPlayer = false;
+    private bool eatFish = false;
     private Vector3 _lastDestination;
 
 
@@ -88,6 +90,8 @@ public class penguinAI : MonoBehaviour
     }
     void Start()
     {
+        GetComponent<penguinModel>().setupActs();
+
         agent = GetComponent<NavMeshAgent>();
         _origin = transform.position;
         target = Player.transform;
@@ -103,12 +107,23 @@ public class penguinAI : MonoBehaviour
             PlayerVR.GetComponent<AudioSource>().PlayOneShot(clipHey);
         }
 
-        //Поворачивается к игроку и машет ему 
-        if (Input.GetKeyDown(KeyCode.K) && !isSleep && !Stop)
+
+        if (Input.GetKeyDown(KeyCode.N) && !isSleep && !Stop)
+        {
+            
+            PlayerVR.GetComponent<AudioSource>().PlayOneShot(clipHey);
+            Debug.Log("Hello");
+            string action = GetComponent<penguinModel>().launchNewScene("HelloPinguin");
+            PenguinActions(action + " HelloPinguin");
+        }
+            //Поворачивается к игроку и машет ему 
+            if (Input.GetKeyDown(KeyCode.K) && !isSleep && !Stop)
         {
             Stop = true;
             PlayerVR.GetComponent<AudioSource>().PlayOneShot(clipHey);
             Debug.Log("Hello");
+            
+
             isCoroutineExecuting = false;
             agent.SetDestination(transform.position);
             GetComponent<Animator>().SetBool("isWalking", false);
@@ -343,7 +358,6 @@ public class penguinAI : MonoBehaviour
         GetComponent<Animator>().SetBool("isStaying", false);
         GetComponent<Animator>().SetBool("isEating", true);
         yield return new WaitForSeconds(0.3f);
-        Debug.Log("ha");
         _fishEating =  Instantiate(fishEating) as GameObject;
         _fishEating.transform.position = fishPosition.transform.position;
         _fishEating.transform.eulerAngles = new Vector3(0, 0, 0);
@@ -371,8 +385,8 @@ public class penguinAI : MonoBehaviour
     {
         if (!isSleep && !Stop)
         {
-            int rand = UnityEngine.Random.Range(0, 3);
-            if(rand == 0)
+            
+            if(!eatFish)
             {
                 Stop = true;
                 isCoroutineExecuting = false;
@@ -382,7 +396,7 @@ public class penguinAI : MonoBehaviour
                 _lastAction = Actions.HittedFish;
                 isTurning = true;
             }
-            else if(rand == 1)
+            else if(eatFish)
             {
                 Stop = true;
                 isCoroutineExecuting = false;
@@ -410,6 +424,8 @@ public class penguinAI : MonoBehaviour
         }
 
     }
+
+
     IEnumerator hitReactionFishCoroutine()
     {
         GetComponent<Animator>().SetBool("isThrowingAside", true);
@@ -429,9 +445,8 @@ public class penguinAI : MonoBehaviour
     }
     IEnumerator hitReactionCoroutine()
     {
-        int randomNum = UnityEngine.Random.Range(0, 2);
 
-        if(randomNum == 0)
+        if(throwToPlayer)
         {
             GetComponent<Animator>().SetBool("isThrowingAtThePlayer", true);
             GetComponent<Animator>().SetBool("isStaying", false);
@@ -447,18 +462,12 @@ public class penguinAI : MonoBehaviour
             yield return new WaitForEndOfFrame();
             Stop = false;
         }
-        else if(randomNum == 1)
+        else if(!throwToPlayer)
         {
-            Debug.Log("RandomNum");
-            Debug.Log(randomNum);
             GetComponent<Animator>().SetBool("isThrowingAside", true);
             GetComponent<Animator>().SetBool("isStaying", false);
             _snowball = Instantiate(snowBall) as GameObject;
             Vector3 snowBallPosition = GameObject.Find("RightForeArm_end").transform.position;
-            //snowBallPosition.x -= 0.5f;
-            //snowBallPosition.z -= 0.5f;
-            //Vector3 snowBallRotation = new Vector3(0, 90, 45);
-            //_snowball.transform.eulerAngles = snowBallRotation;
             _snowball.transform.position = snowBallPosition;
             _snowball.transform.Rotate(40, -90, 0);
             yield return new WaitForSeconds(0.5f);
@@ -664,6 +673,144 @@ public class penguinAI : MonoBehaviour
         {
             Move(Player.GetComponent<Transform>().position);
         }
+    }
+
+    public void PenguinActions(String action)
+    {
+        if(action == "positive HelloPinguin")
+        {
+            if(!isSleep && !Stop)
+            {
+                Stop = true;
+                PlayerVR.GetComponent<AudioSource>().PlayOneShot(clipHey);
+                Debug.Log("Hello");
+                isCoroutineExecuting = false;
+                agent.SetDestination(transform.position);
+                GetComponent<Animator>().SetBool("isWalking", false);
+                GetComponent<Animator>().SetBool("isStaying", true);
+                _lastAction = Actions.Waving;
+                isTurning = true;
+            }
+        }
+        if(action == "goToBoxWithFish")
+        {
+            if(!isSleep && !Stop)
+            {
+                Stop = true;
+                Debug.Log("Hungry");
+                isCoroutineExecuting = false;
+                Move(BasketFishPosition.transform.position);
+                isHungry = true;
+            }
+        }
+
+        if (action == "goToBoxWithSnowBalls")
+        {
+            if (!isSleep && !Stop)
+            {
+                Stop = true;
+                Debug.Log("Playful");
+                isCoroutineExecuting = false;
+                Move(BasketSnowBallPosition.transform.position);
+                isPlayful = true;
+            }
+        }
+        //if(action == "eatingFish")
+        //{
+        //    if(!isSleep && !Stop)
+        //    {
+        //        Stop = true;
+        //        isCoroutineExecuting = false;
+        //        Debug.Log("Eating");
+        //        agent.SetDestination(transform.position);
+        //        isCoroutineExecuting = false;
+        //        _lastAction = Actions.Eating;
+        //        StartCoroutine(Eating());
+        //    }
+        //}
+
+        if(action == "turnFromPlayer")
+        {
+            if(!isSleep && !Stop)
+            {
+                Stop = true;
+                Debug.Log("Turn from the player");
+                isCoroutineExecuting = false;
+                agent.SetDestination(transform.position);
+                GetComponent<Animator>().SetBool("isWalking", false);
+                GetComponent<Animator>().SetBool("isStaying", true);
+                _lastAction = Actions.TurningFromThePlayer;
+                isTurning = true;
+            }
+        }
+
+        if(action == "turnToPlayerAndMashetKrylyamijdetryby")
+        {
+            if(!isSleep && !Stop)
+            {
+                Stop = true;
+                isCoroutineExecuting = false;
+                agent.SetDestination(transform.position);
+                GetComponent<Animator>().SetBool("isWalking", false);
+                GetComponent<Animator>().SetBool("isStaying", true);
+                _lastAction = Actions.WaitingForFish;
+                isTurning = true;
+            }
+        }
+        if(action == "positive ThrowBallToPinguin")
+        {
+            if(!isSleep && !Stop)
+            {
+                throwToPlayer = true;
+                hitReaction();
+            }
+        }
+        if (action == "ignore ThrowBallToPinguin")
+        {
+            if (!isSleep && !Stop)
+            {
+                throwToPlayer = false;
+                hitReaction();
+            }
+        }
+        if(action == "ignore FeedPinguin")
+        {
+            if(!isSleep && !Stop)
+            {
+                eatFish = false;
+                hitReactionFish();
+            }
+        }
+        if (action == "positive FeedPinguin")
+        {
+            if (!isSleep && !Stop)
+            {
+                eatFish = true;
+                hitReactionFish();
+            }
+        }
+        if (action == "positive StrokePinguin")
+        {
+            if(!isSleep && !Stop)
+            {
+                happy();
+            }
+        }
+        if (action == "ignore StrokePinguin")
+        {
+            if (!isSleep && !Stop)
+            {
+                PenguinActions("turnFromPlayer");
+            }
+        }
+        if (action == "SadPenguinAfterHit")
+        {
+            if (!isSleep && !Stop)
+            {
+                sad();
+            }
+        }
+
     }
 
 

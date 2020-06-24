@@ -90,6 +90,7 @@
     <Compile Include="Assets\Penguin\Scripts\LocomotionSimpleAgent.cs" />
     <Compile Include="Assets\Penguin\Scripts\LookAt.cs" />
     <Compile Include="Assets\Penguin\Scripts\SimpleMovement.cs" />
+    <Compile Include="Assets\penguinModel.cs" />
     <Compile Include="Assets\penguinTouch.cs" />
     <Compile Include="Assets\Player_capsule\FPSInput.cs" />
     <Compile Include="Assets\Player_capsule\MouseLook.cs" />
