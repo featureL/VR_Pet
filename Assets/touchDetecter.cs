@@ -14,7 +14,7 @@ public class touchDetecter : MonoBehaviour
     {
         if (other.tag == "Interactor")
         {
-             if (leftController.GetComponent<VelocityTracker>().GetVelocity().magnitude > 5)
+             if (leftController.GetComponent<VelocityTracker>().GetVelocity().magnitude > 3)
              {
                 if (!penguin.GetComponent<penguinAI>().Stop)
                 {

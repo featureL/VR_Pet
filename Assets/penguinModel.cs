@@ -25,18 +25,24 @@ public class penguinModel : MonoBehaviour
     {
         for(int i = 0; i < 5; i++)
         {
-            penguinBodyFactor[i] -= 0.0001;
+            if (penguinBodyFactor[0] < 0.02)
+                penguinBodyFactor[0] = 0;
+            if(!GetComponent<penguinAI>().Stop && !GetComponent<penguinAI>().isSleep)
+                penguinBodyFactor[i] -= 0.0001;
+            
         }
 
-        //foreach (var el in penguinBodyFactor)
-        //{
-        //    Debug.Log(el);
-        //}
+
+        foreach (var el in penguinBodyFactor)
+        {
+            Debug.Log(el);
+        }
 
         //Debug.Log(penguinBodyFactor[(int)body.satiety]);
         //Debug.Log(TimerToEat);
-        Debug.Log(penguinBodyFactor[(int)body.sociability]);
-        if(penguinBodyFactor[(int)body.energy] < -criticalValue)
+        //Debug.Log(penguinBodyFactor[(int)body.sociability]);
+        
+        if(penguinBodyFactor[(int)body.energy] < -1)
         {
             Debug.Log("f");
             if(GetComponent<penguinAI>().isSleep == false)
@@ -47,7 +53,8 @@ public class penguinModel : MonoBehaviour
             }
 
         }
-        if (penguinBodyFactor[(int)body.satiety] > -criticalValue)
+
+        if (penguinBodyFactor[(int)body.satiety] > -0.3)
             timetoeat = false;
 
         if (timetoeat)
@@ -57,7 +64,7 @@ public class penguinModel : MonoBehaviour
 
 
 
-        if (penguinBodyFactor[(int)body.satiety] < -criticalValue && TimerToEat % 30 < 0.5)
+        if (penguinBodyFactor[(int)body.satiety] < -0.3 && TimerToEat % 70 < 0.5)
         {
             timetoeat = true;
             Debug.Log("f");
@@ -70,7 +77,7 @@ public class penguinModel : MonoBehaviour
         }
         
 
-        if (penguinBodyFactor[(int)body.activity] < -criticalValue)
+        if (penguinBodyFactor[(int)body.activity] < -0.2)
         {
             Debug.Log("f");
             if (GetComponent<penguinAI>().Stop == false)
@@ -81,7 +88,7 @@ public class penguinModel : MonoBehaviour
 
         }
 
-        if (penguinBodyFactor[(int)body.sociability] < -criticalValue)
+        if (penguinBodyFactor[(int)body.sociability] < -0.15)
         {
             Debug.Log("f");
             if (GetComponent<penguinAI>().Stop == false)
@@ -247,7 +254,7 @@ public class penguinModel : MonoBehaviour
         allActs["HitPinguin"].setMoralFactorForAuthor(new double[] { -0.9, 0.7, 0.5 });
 
         allActsIndependentPinguin.Add("GoSleepPinguin", new act());
-        allActsIndependentPinguin["GoSleepPinguin"].setBodyFactorForTarget(new double[] { -0.2, 0.6, -0.3, -0.2, -0.1 });
+        allActsIndependentPinguin["GoSleepPinguin"].setBodyFactorForTarget(new double[] { -0.2, 1.6, -0.3, -0.2, -0.1 });
         allActsIndependentPinguin["GoSleepPinguin"].setMoralFactorForTarget(new double[] { 0.1, -0.8, 0 });
         allActsIndependentPinguin["GoSleepPinguin"].setMoralFactorForAuthor(new double[] { 0, -0.3, 0 });
 
