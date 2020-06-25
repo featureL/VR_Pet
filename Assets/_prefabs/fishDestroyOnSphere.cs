@@ -8,10 +8,10 @@ public class fishDestroyOnSphere : MonoBehaviour
     [SerializeField] private GameObject penguin;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "PenguinSphere")
+        if (other.tag == "PenguinSphere" && this.tag == "PlayerFish")
         {
+            Debug.Log("LODSFSDFSDFESD");
             penguin = GameObject.Find("Penguin");
-            //penguin.GetComponent<penguinAI>().hitReactionFish();
             string action = penguin.GetComponent<penguinModel>().launchNewScene("FeedPinguin");
             penguin.GetComponent<penguinAI>().PenguinActions(action + " FeedPinguin");
             penguin.GetComponent<penguinAI>().waitingForFish = false;

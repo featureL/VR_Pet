@@ -105,6 +105,8 @@ public class penguinAI : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.F))
         {
             PlayerVR.GetComponent<AudioSource>().PlayOneShot(clipHey);
+            string action = GetComponent<penguinModel>().launchNewScene("HelloPinguin");
+            PenguinActions(action + " HelloPinguin");
         }
 
 
@@ -122,8 +124,6 @@ public class penguinAI : MonoBehaviour
             Stop = true;
             PlayerVR.GetComponent<AudioSource>().PlayOneShot(clipHey);
             Debug.Log("Hello");
-            
-
             isCoroutineExecuting = false;
             agent.SetDestination(transform.position);
             GetComponent<Animator>().SetBool("isWalking", false);
@@ -682,7 +682,7 @@ public class penguinAI : MonoBehaviour
             if(!isSleep && !Stop)
             {
                 Stop = true;
-                PlayerVR.GetComponent<AudioSource>().PlayOneShot(clipHey);
+                //PlayerVR.GetComponent<AudioSource>().PlayOneShot(clipHey);
                 Debug.Log("Hello");
                 isCoroutineExecuting = false;
                 agent.SetDestination(transform.position);
@@ -692,7 +692,12 @@ public class penguinAI : MonoBehaviour
                 isTurning = true;
             }
         }
-        if(action == "goToBoxWithFish")
+
+        if (action == "ignore HelloPinguin")
+        {
+            Debug.Log("NoHello");
+        }
+        if (action == "goToBoxWithFish")
         {
             if(!isSleep && !Stop)
             {
@@ -713,6 +718,18 @@ public class penguinAI : MonoBehaviour
                 isCoroutineExecuting = false;
                 Move(BasketSnowBallPosition.transform.position);
                 isPlayful = true;
+            }
+        }
+
+        if(action == "GoCommunicatePenguin")
+        {
+            if(!isSleep && !Stop)
+            {
+                Stop = true;
+                isCoroutineExecuting = false;
+                agent.SetDestination(transform.position);
+                isStayingInFrontOfPlayer = true;
+                Move(PlayerPosition.transform.position);
             }
         }
         //if(action == "eatingFish")

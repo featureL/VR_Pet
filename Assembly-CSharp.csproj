@@ -96,6 +96,7 @@
     <Compile Include="Assets\Player_capsule\MouseLook.cs" />
     <Compile Include="Assets\Player_capsule\RayShooter.cs" />
     <Compile Include="Assets\Player_capsule\ThrowSnowBall.cs" />
+    <Compile Include="Assets\SetFishTag.cs" />
     <Compile Include="Assets\SpawnSnawBalls.cs" />
     <Compile Include="Assets\testVelocity.cs" />
     <Compile Include="Assets\touchDetecter.cs" />

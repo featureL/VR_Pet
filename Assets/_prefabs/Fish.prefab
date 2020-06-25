@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &114606599820703450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8673635989367816700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4456e644e21ea0640b55cedd61920f17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fish: {fileID: 8673635989367816700}
 --- !u!114 &114797968756816438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23,6 +36,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fish
+      objectReference: {fileID: 0}
+    - target: {fileID: 3091263986171131486, guid: 28111fd7c55a34d479beb0b3f6dcaf53,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8610744257966490983, guid: 28111fd7c55a34d479beb0b3f6dcaf53,
         type: 3}
@@ -82,7 +100,7 @@ PrefabInstance:
     - target: {fileID: 1537305089011321434, guid: 28111fd7c55a34d479beb0b3f6dcaf53,
         type: 3}
       propertyPath: FirstGrabbed.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1537305089011321434, guid: 28111fd7c55a34d479beb0b3f6dcaf53,
         type: 3}
@@ -107,6 +125,31 @@ PrefabInstance:
     - target: {fileID: 1537305089011321434, guid: 28111fd7c55a34d479beb0b3f6dcaf53,
         type: 3}
       propertyPath: FirstGrabbed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1537305089011321434, guid: 28111fd7c55a34d479beb0b3f6dcaf53,
+        type: 3}
+      propertyPath: FirstGrabbed.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1537305089011321434, guid: 28111fd7c55a34d479beb0b3f6dcaf53,
+        type: 3}
+      propertyPath: FirstGrabbed.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1537305089011321434, guid: 28111fd7c55a34d479beb0b3f6dcaf53,
+        type: 3}
+      propertyPath: FirstGrabbed.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 114606599820703450}
+    - target: {fileID: 1537305089011321434, guid: 28111fd7c55a34d479beb0b3f6dcaf53,
+        type: 3}
+      propertyPath: FirstGrabbed.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetTeg
+      objectReference: {fileID: 0}
+    - target: {fileID: 1537305089011321434, guid: 28111fd7c55a34d479beb0b3f6dcaf53,
+        type: 3}
+      propertyPath: FirstGrabbed.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []

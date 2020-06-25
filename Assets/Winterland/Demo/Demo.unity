@@ -10753,6 +10753,36 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.002, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &441756696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 441756697}
+  m_Layer: 0
+  m_Name: VRPlayerPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &441756697
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441756696}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.828, y: -0.16999981, z: 0.956}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 365235973}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &443258612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47771,7 +47801,7 @@ PrefabInstance:
         type: 3}
       propertyPath: PlayerPosition
       value: 
-      objectReference: {fileID: 821042795}
+      objectReference: {fileID: 441756696}
     - target: {fileID: 2642124944038276262, guid: 3ab287d400f0f194b8fd5493e59fda86,
         type: 3}
       propertyPath: clip
@@ -53789,7 +53819,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1697592595}
   m_LocalRotation: {x: 0, y: 0.63520247, z: 0, w: 0.77234566}
-  m_LocalPosition: {x: 51.78, y: 4.001, z: 96.63}
+  m_LocalPosition: {x: 50.563, y: 4.001, z: 94.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1444546463}
